@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "dataset": "hotel_reviews_sample.csv",
+  "dataset_sha256": "c04c6b0e5d5c43a8d5c3744213fb658744493a4ad15081cd1230c77f318bbbcb",
+  "seed": 42,
+  "rows": 320,
+  "split_counts": {
+    "train": 192,
+    "validation": 64,
+    "test": 64
+  },
+  "split_method": "deduplicated_review_random",
+  "selection": "validation polarity macro-F1; star accuracy tie-break; alphabetical final tie-break",
+  "evaluation": "Refit on train+validation; evaluate test once. Saved models exclude test rows.",
+  "versions": {
+    "python": "3.11.9",
+    "scikit_learn": "1.9.0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "joblib": "1.5.3"
+  },
+  "targets": {
+    "overall_rating": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "overall_rating_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "4d65ee7710c4d8031ea1ebd1c66cda1f7ba4e75eb3e14c1e4c6026cbc6d7f810"
+    },
+    "service": {
+      "status": "trained",
+      "model": "LinearSVC_Count_2gram",
+      "file": "service_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "936493bb32140cf1552af5acc94e24da6a55aa3ad6aadd3bd29914c2624f5cf1"
+    },
+    "rooms": {
+      "status": "trained",
+      "model": "LinearSVC_Count_2gram",
+      "file": "rooms_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "8f61ca28b4eb9098d0f4419e5505456a7402b85728ab01b5459c7c914f6dcc2b"
+    },
+    "location": {
+      "status": "trained",
+      "model": "LinearSVC_Count_2gram",
+      "file": "location_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "e4168e0d70be23fe283d9d87070acb4c9d0151a0c8424705e871c80af5f38bd5"
+    },
+    "value": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "value_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "8516075efa2a64d79529109deabceb27042591f77e4aa4851a14824c339b95a9"
+    },
+    "cleanliness": {
+      "status": "trained",
+      "model": "LinearSVC_Count_2gram",
+      "file": "cleanliness_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "8cca61c6b14eaa83d039bef87ec77c57b69c826bb2e7cd49a3ad27a1940f8860"
+    },
+    "sleep_quality": {
+      "status": "trained",
+      "model": "LinearSVC_Count_2gram",
+      "file": "sleep_quality_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "f2d97c4c6bdce39d0623c7cce03867dbb2a8084526847457f1f62349e950adf0"
+    },
+    "business_service": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "business_service_model.joblib",
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "file_sha256": "0868b6000730f645ff1779bfdb38739284fcc913ef9be2cf1d8dcec9baf2b50e"
+    }
+  }
+}

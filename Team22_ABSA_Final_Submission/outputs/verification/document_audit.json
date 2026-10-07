@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "report_pages": 2,
+  "presentation_slides": 11,
+  "native_tables": 3,
+  "native_charts": 1,
+  "embedded_chart_workbooks": 1,
+  "chart_values_match_metrics": true,
+  "software_test_count_in_both_documents": 42,
+  "visual_review": "Both rendered PDF pages and all 11 rendered slides inspected; no clipping or overlap observed.",
+  "sha256": {
+    "ABSA_Hotel_Reviews_Final_Writeup.pdf": "8bc2e57922646aa066ea990668c981ece6cf590935aad3cee09b4de8fd4aa1aa",
+    "ABSA_Hotel_Reviews_Final_Presentation.pptx": "b9260a0b36161a49a77af2e4bf671339a9350d7c74891744fa7c261ffc918953"
+  }
+}

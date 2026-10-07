@@ -1,0 +1,276 @@
+{
+  "dataset": "real",
+  "purpose": "Constructed demo inputs, not labelled evaluation data; all five preselected cases retained.",
+  "examples": [
+    {
+      "id": 1,
+      "review": "The room was clean and spacious, but the staff was rude and the breakfast was disappointing.",
+      "predictions": {
+        "Overall": {
+          "rating": 4,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Service": {
+          "rating": 4,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Rooms": {
+          "rating": 3,
+          "polarity": "neutral",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Location": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Value": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Cleanliness": {
+          "rating": 4,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Sleep Quality": {
+          "rating": null,
+          "polarity": null,
+          "status": "unavailable",
+          "mentioned": false
+        },
+        "Business Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "id": 2,
+      "review": "The staff were friendly and helpful. The room was dirty, but the location was close to the station.",
+      "predictions": {
+        "Overall": {
+          "rating": 5,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Service": {
+          "rating": 5,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Rooms": {
+          "rating": 4,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Location": {
+          "rating": 5,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Value": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Cleanliness": {
+          "rating": 5,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Sleep Quality": {
+          "rating": null,
+          "polarity": null,
+          "status": "unavailable",
+          "mentioned": false
+        },
+        "Business Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "id": 3,
+      "review": "The room was noisy all night and I could not sleep.",
+      "predictions": {
+        "Overall": {
+          "rating": 2,
+          "polarity": "negative",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Rooms": {
+          "rating": 2,
+          "polarity": "negative",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Location": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Value": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Cleanliness": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Sleep Quality": {
+          "rating": null,
+          "polarity": null,
+          "status": "unavailable",
+          "mentioned": true
+        },
+        "Business Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "id": 4,
+      "review": "Beautiful view.",
+      "predictions": {
+        "Overall": {
+          "rating": 5,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Rooms": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Location": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Value": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Cleanliness": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Sleep Quality": {
+          "rating": null,
+          "polarity": null,
+          "status": "unavailable",
+          "mentioned": false
+        },
+        "Business Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "id": 5,
+      "review": "The wifi was unusable and the conference room was dirty.",
+      "predictions": {
+        "Overall": {
+          "rating": 1,
+          "polarity": "negative",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Service": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Rooms": {
+          "rating": 1,
+          "polarity": "negative",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Location": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Value": {
+          "rating": null,
+          "polarity": null,
+          "status": "not_mentioned",
+          "mentioned": false
+        },
+        "Cleanliness": {
+          "rating": 1,
+          "polarity": "negative",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "Sleep Quality": {
+          "rating": null,
+          "polarity": null,
+          "status": "unavailable",
+          "mentioned": false
+        },
+        "Business Service": {
+          "rating": 2,
+          "polarity": "negative",
+          "status": "predicted",
+          "mentioned": true
+        }
+      }
+    }
+  ]
+}

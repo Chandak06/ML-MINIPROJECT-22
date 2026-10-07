@@ -1,0 +1,47 @@
+test_delivered_metrics_splits_and_models (test_project.DeliveredArtifactTests.test_delivered_metrics_splits_and_models) ... ok
+test_polarity_baseline_uses_development_majority (test_project.DeliveredArtifactTests.test_polarity_baseline_uses_development_majority) ... ok
+test_real_dataset_provenance_and_labels (test_project.DeliveredArtifactTests.test_real_dataset_provenance_and_labels) ... ok
+test_streamlit_demo_predicts_and_validates (test_project.DeliveredArtifactTests.test_streamlit_demo_predicts_and_validates) ... ok
+test_all_supported_models_reload (test_project.EndToEndTests.test_all_supported_models_reload) ... ok
+test_cli_invalid_input_has_nonzero_status (test_project.EndToEndTests.test_cli_invalid_input_has_nonzero_status) ... ok
+test_cli_prediction_does_not_train_or_need_data (test_project.EndToEndTests.test_cli_prediction_does_not_train_or_need_data) ... ok
+test_empty_prediction_rejected (test_project.EndToEndTests.test_empty_prediction_rejected) ... ok
+test_known_polarity_direction (test_project.EndToEndTests.test_known_polarity_direction) ... ok
+test_long_review_rejected (test_project.EndToEndTests.test_long_review_rejected) ... ok
+test_metrics_recomputed_from_saved_predictions (test_project.EndToEndTests.test_metrics_recomputed_from_saved_predictions) ... ok
+test_missing_labels_produce_unavailable (test_project.EndToEndTests.test_missing_labels_produce_unavailable) ... ok
+test_missing_manifest_has_actionable_error (test_project.EndToEndTests.test_missing_manifest_has_actionable_error) ... ok
+test_model_corruption_detected (test_project.EndToEndTests.test_model_corruption_detected) ... ok
+test_unknown_vocabulary_abstains (test_project.EndToEndTests.test_unknown_vocabulary_abstains) ... ok
+test_unmentioned_aspects_abstain (test_project.EndToEndTests.test_unmentioned_aspects_abstain) ... ok
+test_bad_rating_rejected (test_project.InputTests.test_bad_rating_rejected) ... ok
+test_blank_review_rejected (test_project.InputTests.test_blank_review_rejected) ... ok
+test_conflicting_duplicates_rejected (test_project.InputTests.test_conflicting_duplicates_rejected) ... ok
+test_duplicate_ids_rejected (test_project.InputTests.test_duplicate_ids_rejected) ... ok
+test_features_do_not_learn_heldout_token (test_project.InputTests.test_features_do_not_learn_heldout_token) ... ok
+test_hotel_split_has_no_overlap (test_project.InputTests.test_hotel_split_has_no_overlap) ... ok
+test_invalid_polarity_rejected (test_project.InputTests.test_invalid_polarity_rejected) ... ok
+test_missing_aspect_labels_kept (test_project.InputTests.test_missing_aspect_labels_kept) ... ok
+test_missing_column_rejected (test_project.InputTests.test_missing_column_rejected) ... ok
+test_missing_overall_rejected (test_project.InputTests.test_missing_overall_rejected) ... ok
+test_negation_preserved (test_project.InputTests.test_negation_preserved) ... ok
+test_normalized_duplicates_removed (test_project.InputTests.test_normalized_duplicates_removed) ... ok
+test_optional_review_id (test_project.InputTests.test_optional_review_id) ... ok
+test_polarity_boundaries (test_project.InputTests.test_polarity_boundaries) ... ok
+test_selection_uses_validation_not_test (test_project.InputTests.test_selection_uses_validation_not_test) ... ok
+test_split_reproducible_and_disjoint (test_project.InputTests.test_split_reproducible_and_disjoint) ... ok
+test_tiny_dataset_rejected (test_project.InputTests.test_tiny_dataset_rejected) ... ok
+test_blank_hotel_ids_rejected (test_readiness.HotelIdTests.test_blank_hotel_ids_rejected) ... ok
+test_partial_hotel_ids_rejected_before_training (test_readiness.HotelIdTests.test_partial_hotel_ids_rejected_before_training) ... ok
+test_split_does_not_fall_back_for_partial_hotel_ids (test_readiness.HotelIdTests.test_split_does_not_fall_back_for_partial_hotel_ids) ... ok
+test_any_failed_check_prevents_ready (test_readiness.ReadinessTests.test_any_failed_check_prevents_ready) ... ok
+test_corrupt_presentation_fails (test_readiness.ReadinessTests.test_corrupt_presentation_fails) ... ok
+test_corrupt_report_fails (test_readiness.ReadinessTests.test_corrupt_report_fails) ... ok
+test_documented_demo_predictions_are_reproducible (test_readiness.ReadinessTests.test_documented_demo_predictions_are_reproducible) ... ok
+test_duplicate_reports_fail (test_readiness.ReadinessTests.test_duplicate_reports_fail) ... ok
+test_missing_project_files_fail (test_readiness.ReadinessTests.test_missing_project_files_fail) ... ok
+
+----------------------------------------------------------------------
+Ran 42 tests in 9.064s
+
+OK

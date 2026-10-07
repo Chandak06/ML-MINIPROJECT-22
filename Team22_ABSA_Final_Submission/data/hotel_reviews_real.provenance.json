@@ -1,0 +1,20 @@
+{
+  "name": "ArguAna TripAdvisor annotated v2",
+  "source": "https://zenodo.org/records/3973241/files/arguana-tripadvisor-annotated-v2.zip?download=1",
+  "record": "https://zenodo.org/records/3973241",
+  "citation": "Wachsmuth et al. (2014), A Review Corpus for Argumentation Analysis, CICLing.",
+  "terms": "Scientific use only; not for commercial applications. Cite the corpus paper.",
+  "archive_md5": "a450bbdbbf888fb171783b62aa81e332",
+  "csv_sha256": "3bf372bdebe5e83c5eca1ce076c74b62563b4bea9f0fac681b3df48912c605d3",
+  "rows": 2100,
+  "mapping": {
+    "service": "service",
+    "rooms": "room",
+    "location": "location",
+    "value": "value",
+    "cleanliness": "cleanliness",
+    "business_service": "business"
+  },
+  "missing_labels": "Source -1 becomes blank. No label imputation. Sleep quality is absent.",
+  "extraction": "Only complete/*.xmi corpus reviews. Overall score is Sentiment.score, never HotelData.stars. Author and date metadata are omitted."
+}

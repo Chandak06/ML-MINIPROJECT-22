@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "dataset": "hotel_reviews_real.csv",
+  "dataset_sha256": "48db43f8ad5a9e9f6b846e2682665ead34e91d3633d1c645ec48229490445b3f",
+  "seed": 42,
+  "rows": 2100,
+  "split_counts": {
+    "train": 1342,
+    "validation": 388,
+    "test": 370
+  },
+  "split_method": "hotel_disjoint",
+  "selection": "validation polarity macro-F1; star accuracy tie-break; alphabetical final tie-break",
+  "evaluation": "Refit on train+validation; evaluate test once. Saved models exclude test rows.",
+  "versions": {
+    "python": "3.11.9",
+    "scikit_learn": "1.9.0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "joblib": "1.5.3"
+  },
+  "targets": {
+    "overall_rating": {
+      "status": "trained",
+      "model": "MultinomialNB_TFIDF",
+      "file": "overall_rating_model.joblib",
+      "counts": {
+        "train": 1342,
+        "validation": 388,
+        "test": 370
+      },
+      "file_sha256": "51160f7c5b112098b77ac6610ff2ed4ddad36fb8924d50c9167faae1d87d9b0a"
+    },
+    "service": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "service_model.joblib",
+      "counts": {
+        "train": 1029,
+        "validation": 308,
+        "test": 271
+      },
+      "file_sha256": "0560c290cf0484ac421cff74badf8263f174765418550b790186a6a88014b6f4"
+    },
+    "rooms": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "rooms_model.joblib",
+      "counts": {
+        "train": 1057,
+        "validation": 314,
+        "test": 276
+      },
+      "file_sha256": "50b1eba85fb1a1d0b81d00eefb94305b534d4b155d6cb23cae197e9e0d6d3320"
+    },
+    "location": {
+      "status": "trained",
+      "model": "LinearSVC_Count_2gram",
+      "file": "location_model.joblib",
+      "counts": {
+        "train": 794,
+        "validation": 221,
+        "test": 223
+      },
+      "file_sha256": "589e1f79b45f36a2dfaa65b5a2034beab4ff338902e92d417a6ddca94e13630f"
+    },
+    "value": {
+      "status": "trained",
+      "model": "MultinomialNB_TFIDF",
+      "file": "value_model.joblib",
+      "counts": {
+        "train": 1042,
+        "validation": 310,
+        "test": 279
+      },
+      "file_sha256": "5da1589c0c776557db370782e19e366ee5497d6b4415d7b33c2cb5f014a998fd"
+    },
+    "cleanliness": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "cleanliness_model.joblib",
+      "counts": {
+        "train": 1057,
+        "validation": 316,
+        "test": 278
+      },
+      "file_sha256": "058a56481015af0cad51a5028f28fb6ba36c7dab5542ae7591cb3ad54e936648"
+    },
+    "sleep_quality": {
+      "status": "unavailable",
+      "reason": "Insufficient observed labels; missing ratings are never invented.",
+      "counts": {
+        "train": 0,
+        "validation": 0,
+        "test": 0
+      }
+    },
+    "business_service": {
+      "status": "trained",
+      "model": "LogReg_TFIDF",
+      "file": "business_service_model.joblib",
+      "counts": {
+        "train": 499,
+        "validation": 143,
+        "test": 130
+      },
+      "file_sha256": "98d25ef6219b681981bf73dda0cad2e89edd025508ce090cc1672f9f6474cdf8"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "utc_time": "2026-10-07T11:48:51.062494+00:00",
+  "checks": [
+    {
+      "name": "Project structure",
+      "passed": true,
+      "detail": "Required project files and folders exist."
+    },
+    {
+      "name": "Dependencies",
+      "passed": true,
+      "detail": {
+        "python": "3.11.9",
+        "packages": {
+          "pandas": "3.0.3",
+          "scikit-learn": "1.9.0",
+          "matplotlib": "3.11.0",
+          "numpy": "2.4.6",
+          "joblib": "1.5.3",
+          "streamlit": "1.64.0"
+        },
+        "pip_check": "passed",
+        "imports": "passed"
+      }
+    },
+    {
+      "name": "Dataset",
+      "passed": true,
+      "detail": {
+        "real_reviews": 2100,
+        "hotels": 122,
+        "split": {
+          "train": 1342,
+          "validation": 388,
+          "test": 370
+        },
+        "synthetic_demo_reviews": 320
+      }
+    },
+    {
+      "name": "Model loading",
+      "passed": true,
+      "detail": {
+        "loaded_models": {
+          "real": 7,
+          "synthetic": 8
+        },
+        "hash_checks": "passed",
+        "sample_predictions": "passed"
+      }
+    },
+    {
+      "name": "CLI prediction",
+      "passed": true,
+      "detail": {
+        "exit_code": 0,
+        "overall": {
+          "rating": 4,
+          "polarity": "positive",
+          "status": "predicted",
+          "mentioned": true
+        },
+        "retraining": false
+      }
+    },
+    {
+      "name": "Final report",
+      "passed": true,
+      "detail": {
+        "file": "docs/ABSA_Hotel_Reviews_Final_Writeup.pdf",
+        "bytes": 8517,
+        "check": "Present with PDF header and end marker; visual/page-count audit is separate."
+      }
+    },
+    {
+      "name": "Final presentation",
+      "passed": true,
+      "detail": {
+        "file": "docs/ABSA_Hotel_Reviews_Final_Presentation.pptx",
+        "slides": 11,
+        "check": "OOXML structure and CRC; visual review is separate."
+      }
+    },
+    {
+      "name": "Automated tests",
+      "passed": true,
+      "detail": {
+        "tests_run": 42,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "successful": true
+      }
+    }
+  ],
+  "ready": true,
+  "scope": "Local technical deliverables; private GitHub access and contribution confirmation remain manual."
+}

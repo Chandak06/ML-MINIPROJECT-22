@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "health_status": 200,
+  "health_body": "ok",
+  "app_page_status": 200,
+  "working_directory": "Team22_ABSA_Final_Submission",
+  "process_stopped_after_test": true,
+  "interaction_tests": "Included in the automated Streamlit AppTest suite"
+}

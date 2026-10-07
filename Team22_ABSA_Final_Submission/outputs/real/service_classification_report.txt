@@ -1,0 +1,24 @@
+HELD-OUT TEST; model selected on validation
+
+              precision    recall  f1-score   support
+
+           1       0.65      0.70      0.67        53
+           2       0.46      0.36      0.40        45
+           3       0.36      0.37      0.37        51
+           4       0.33      0.35      0.34        62
+           5       0.46      0.45      0.45        60
+
+    accuracy                           0.45       271
+   macro avg       0.45      0.45      0.45       271
+weighted avg       0.45      0.45      0.45       271
+
+POLARITY
+              precision    recall  f1-score   support
+
+    negative       0.79      0.74      0.77        98
+     neutral       0.36      0.37      0.37        51
+    positive       0.74      0.76      0.75       122
+
+    accuracy                           0.68       271
+   macro avg       0.63      0.63      0.63       271
+weighted avg       0.69      0.68      0.68       271

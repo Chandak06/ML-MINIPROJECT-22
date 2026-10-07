@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "scope": "Entire final submission tree, including dataset text and extracted document text. Pattern scan is not a guarantee of absence of every possible secret.",
+  "text_files_scanned": 65,
+  "credential_indicators": [],
+  "machine_absolute_paths": [],
+  "forbidden_entries": [],
+  "files_over_100_MiB": [],
+  "largest_file": "data/hotel_reviews_real.csv",
+  "largest_file_bytes": 2184807,
+  "pdf_count": 1,
+  "pptx_count": 1
+}

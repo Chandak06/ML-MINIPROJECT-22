@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "seed": 42,
+  "compared": [
+    "metrics.csv",
+    "validation_model_comparison.csv",
+    "split_manifest.csv",
+    "test_predictions.csv"
+  ],
+  "scope": "Full real-data training from final source into separate temporary directories; all compared values match the delivered reference results."
+}
