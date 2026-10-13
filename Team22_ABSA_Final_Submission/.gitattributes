@@ -1,0 +1,6 @@
+# Preserve bytes used by dataset/model/source integrity checks across platforms.
+*.py -text diff=python
+*.csv -text
+*.joblib binary
+*.pdf binary
+*.pptx binary

@@ -1,0 +1,17 @@
+target,split,n,method,threshold,mean_confidence,correctness_brier_score,all_row_polarity_accuracy,confidence_acceptance_coverage,accepted_polarity_accuracy,ui_prediction_coverage,ui_predicted_polarity_accuracy
+overall_rating,validation,64,native_probability_uncalibrated,0.6599756743062047,0.7307084026879821,0.10465899440571245,0.875,0.671875,1.0,,
+overall_rating,test,64,native_probability_uncalibrated,0.6599756743062047,0.7550630412665733,0.10885072028933784,0.84375,0.609375,1.0,0.609375,1.0
+service,validation,64,sigmoid_stratified_oof,0.0,0.8550694662540594,0.027335443407479412,1.0,1.0,1.0,,
+service,test,64,sigmoid_stratified_oof,0.0,0.901606587945265,0.015732036814031437,1.0,1.0,1.0,1.0,1.0
+rooms,validation,64,native_probability_uncalibrated,0.6286533496375651,0.8574743071668285,0.02616489952263594,0.984375,0.984375,1.0,,
+rooms,test,64,native_probability_uncalibrated,0.6286533496375651,0.8878064269063889,0.017165457382992563,1.0,1.0,1.0,1.0,1.0
+location,validation,64,native_probability_uncalibrated,0.0,0.982123705102192,0.0011973427429951618,1.0,1.0,1.0,,
+location,test,64,native_probability_uncalibrated,0.0,0.9883846743224083,0.0006707107896252623,1.0,1.0,1.0,0.984375,1.0
+value,validation,64,native_probability_uncalibrated,0.45830981555455996,0.6670839530853869,0.12311570242269307,0.984375,0.984375,1.0,,
+value,test,64,native_probability_uncalibrated,0.45830981555455996,0.7362026957660918,0.0820595084364146,0.984375,0.953125,1.0,0.703125,1.0
+cleanliness,validation,64,sigmoid_stratified_oof,0.0,0.9201260253990271,0.012237258910257027,1.0,1.0,1.0,,
+cleanliness,test,64,sigmoid_stratified_oof,0.0,0.9587111101386526,0.002358599311019354,1.0,1.0,1.0,1.0,1.0
+sleep_quality,validation,64,sigmoid_stratified_oof,0.0,0.8777090094596083,0.021089155078014322,1.0,1.0,1.0,,
+sleep_quality,test,64,sigmoid_stratified_oof,0.0,0.931276946976396,0.0069569887293181405,1.0,1.0,1.0,0.9375,1.0
+business_service,validation,64,sigmoid_stratified_oof,0.0,0.9051064265776646,0.013572390704351699,1.0,1.0,1.0,,
+business_service,test,64,sigmoid_stratified_oof,0.0,0.9211992702081839,0.013493182832896047,1.0,1.0,1.0,1.0,1.0

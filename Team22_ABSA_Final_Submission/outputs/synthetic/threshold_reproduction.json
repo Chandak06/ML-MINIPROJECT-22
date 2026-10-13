@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "targets": [
+    {
+      "target": "overall_rating",
+      "status": "passed",
+      "threshold": 0.6599756743062047,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "service",
+      "status": "passed",
+      "threshold": 0.0,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "rooms",
+      "status": "passed",
+      "threshold": 0.6286533496375651,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "location",
+      "status": "passed",
+      "threshold": 0.0,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "value",
+      "status": "passed",
+      "threshold": 0.45830981555455996,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "cleanliness",
+      "status": "passed",
+      "threshold": 0.0,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "sleep_quality",
+      "status": "passed",
+      "threshold": 0.0,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "business_service",
+      "status": "passed",
+      "threshold": 0.0,
+      "validation_n": 64,
+      "fit_population": "training_only"
+    }
+  ],
+  "method": "Refit fixed selected configurations on training only; reproduce validation probabilities and thresholds. No parameter changes."
+}

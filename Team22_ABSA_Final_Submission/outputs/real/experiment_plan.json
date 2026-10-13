@@ -1,0 +1,16 @@
+{
+  "frozen_before_real_training": true,
+  "date": "2026-10-08",
+  "seed": 42,
+  "data_changes": "None; preserve existing review IDs, labels, normalized duplicate policy and hotel-disjoint split.",
+  "routing_rules": "Stateless clauses-v1 rules based on the user's supplied aspect vocabulary and diagnostic sentences. No fitted lexicon or test-driven routing thresholds.",
+  "candidates": ["TF-IDF + MultinomialNB alpha=0.5", "Count + balanced LinearSVC C=0.1", "TF-IDF + balanced LogisticRegression C=4.0"],
+  "text_strategies": ["full_review", "aspect_text_with_explicit_full_review_fallback"],
+  "selection": "Validation polarity macro-F1; validation star accuracy; prefer full review on exact ties; classifier name.",
+  "calibration": "Native uncalibrated probabilities for NB/LR. For SVC, sigmoid out-of-fold calibration in three stratified hotel-separated folds where feasible. Fit on training only for validation predictions, refit on development only for final predictions.",
+  "uncertainty": "Validation correctness balanced accuracy selects a confidence threshold. Ties prefer coverage. No test thresholds.",
+  "test_metrics": "Score all observed labels before mention or uncertainty abstention. Report coverage and selective accuracy separately.",
+  "additional_analysis": "Within-one-star accuracy, all errors, per-class reports, coverage, mixed-aspect-label subset, and 500 hotel-cluster bootstrap replicates with paired old/new deltas.",
+  "known_limitation": "Historical test results were already available. This is a controlled paired comparison on the established split, not an independent new confirmation dataset. No performance-driven tuning after observing new test metrics.",
+  "optional_models": "Transformers and ordinal classifiers remain future work; no added dependencies or fabricated results."
+}

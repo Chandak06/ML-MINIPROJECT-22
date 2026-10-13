@@ -1,0 +1,24 @@
+HELD-OUT TEST; configuration selected on validation; all labelled rows scored before UI abstention
+
+              precision    recall  f1-score   support
+
+           1       0.12      0.50      0.20         2
+           2       0.75      0.30      0.43        10
+           3       1.00      1.00      1.00        12
+           4       0.62      0.48      0.54        27
+           5       0.26      0.38      0.31        13
+
+    accuracy                           0.53        64
+   macro avg       0.55      0.53      0.50        64
+weighted avg       0.62      0.53      0.55        64
+
+POLARITY
+              precision    recall  f1-score   support
+
+    negative       1.00      1.00      1.00        12
+     neutral       1.00      1.00      1.00        12
+    positive       1.00      1.00      1.00        40
+
+    accuracy                           1.00        64
+   macro avg       1.00      1.00      1.00        64
+weighted avg       1.00      1.00      1.00        64

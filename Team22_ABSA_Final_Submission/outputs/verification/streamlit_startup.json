@@ -1,9 +1,9 @@
 {
+  "utc_time": "2026-10-08T13:05:57.620735+00:00",
   "status": "passed",
   "health_status": 200,
-  "health_body": "ok",
-  "app_page_status": 200,
-  "working_directory": "Team22_ABSA_Final_Submission",
-  "process_stopped_after_test": true,
-  "interaction_tests": "Included in the automated Streamlit AppTest suite"
+  "application_status": 200,
+  "host": "127.0.0.1",
+  "owned_process_stopped_after_check": true,
+  "interaction_tests": "Streamlit AppTest suite passed in both modes"
 }

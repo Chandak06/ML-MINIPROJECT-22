@@ -1,11 +1,12 @@
 {
+  "utc_time": "2026-10-08T13:05:57.620735+00:00",
   "status": "passed",
   "seed": 42,
-  "compared": [
-    "metrics.csv",
-    "validation_model_comparison.csv",
-    "split_manifest.csv",
-    "test_predictions.csv"
+  "checks": [
+    "Established real split unchanged (1342/388/370, hotel-disjoint)",
+    "Old whole-review metrics reproduced on all seven targets",
+    "Validation thresholds independently reproduced from training-only fits (threshold_reproduction.json)",
+    "Export-only repeat exactly reproduced real and synthetic metrics and real test predictions"
   ],
-  "scope": "Full real-data training from final source into separate temporary directories; all compared values match the delivered reference results."
+  "scope": "No test-driven tuning. Final verifier checks current source hashes, fitted populations, predictions and thresholds."
 }

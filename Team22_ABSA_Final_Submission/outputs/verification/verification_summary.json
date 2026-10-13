@@ -1,5 +1,5 @@
 {
-  "utc_time": "2026-10-07T11:48:51.062494+00:00",
+  "utc_time": "2026-10-08T13:11:02.366620+00:00",
   "checks": [
     {
       "name": "Project structure",
@@ -55,12 +55,70 @@
       "detail": {
         "exit_code": 0,
         "overall": {
-          "rating": 4,
-          "polarity": "positive",
-          "status": "predicted",
-          "mentioned": true
+          "rating": null,
+          "polarity": null,
+          "status": "uncertain",
+          "prediction_status": "uncertain",
+          "evidence": "The room was clean and spacious, but the staff was rude and the breakfast was disappointing.",
+          "evidence_source": "whole_review_selected",
+          "fallback_reason": "validation_selected_full_review",
+          "routed_aspect_text": "The room was clean and spacious, but the staff was rude and the breakfast was disappointing.",
+          "mentioned": true,
+          "confidence": 0.5041066944833015,
+          "rating_confidence": 0.33121862522897466,
+          "confidence_method": "native_probability_uncalibrated",
+          "confidence_threshold": 0.5475664627441945,
+          "low_confidence": true,
+          "candidate_rating": 4,
+          "candidate_polarity": "positive",
+          "estimate": false,
+          "selected_model": "MultinomialNB_TFIDF",
+          "routing_strategy": "full_review"
         },
         "retraining": false
+      }
+    },
+    {
+      "name": "Aspect routing and prediction schema",
+      "passed": true,
+      "detail": {
+        "router": "clauses-v1",
+        "mixed_clause_evidence": "passed",
+        "schema": "passed",
+        "real_sleep": "unavailable",
+        "synthetic_sleep": "trained"
+      }
+    },
+    {
+      "name": "Saved metrics, selection and leakage checks",
+      "passed": true,
+      "detail": {
+        "real": {
+          "targets": 7,
+          "candidate_configurations": 42,
+          "test_predictions": 1827,
+          "metric_recomputation": "passed",
+          "source_fingerprints": "passed",
+          "calibration_partitions": "passed"
+        },
+        "synthetic": {
+          "targets": 8,
+          "candidate_configurations": 48,
+          "test_predictions": 512,
+          "metric_recomputation": "passed",
+          "source_fingerprints": "passed",
+          "calibration_partitions": "passed"
+        }
+      }
+    },
+    {
+      "name": "Streamlit startup",
+      "passed": true,
+      "detail": {
+        "health_status": 200,
+        "application_status": 200,
+        "host": "127.0.0.1",
+        "owned_process_stopped_after_check": true
       }
     },
     {
@@ -68,7 +126,7 @@
       "passed": true,
       "detail": {
         "file": "docs/ABSA_Hotel_Reviews_Final_Writeup.pdf",
-        "bytes": 8517,
+        "bytes": 9525,
         "check": "Present with PDF header and end marker; visual/page-count audit is separate."
       }
     },
@@ -77,15 +135,25 @@
       "passed": true,
       "detail": {
         "file": "docs/ABSA_Hotel_Reviews_Final_Presentation.pptx",
-        "slides": 11,
+        "slides": 13,
         "check": "OOXML structure and CRC; visual review is separate."
+      }
+    },
+    {
+      "name": "Document consistency with current results",
+      "passed": true,
+      "detail": {
+        "report_pages": 2,
+        "presentation_slides": 13,
+        "visual_audit_hashes": "passed",
+        "current_metrics": "matched"
       }
     },
     {
       "name": "Automated tests",
       "passed": true,
       "detail": {
-        "tests_run": 42,
+        "tests_run": 78,
         "failures": 0,
         "errors": 0,
         "skipped": 0,

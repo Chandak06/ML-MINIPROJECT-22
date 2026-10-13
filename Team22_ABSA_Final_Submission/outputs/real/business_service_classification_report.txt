@@ -1,4 +1,4 @@
-HELD-OUT TEST; model selected on validation
+HELD-OUT TEST; configuration selected on validation; all labelled rows scored before UI abstention
 
               precision    recall  f1-score   support
 

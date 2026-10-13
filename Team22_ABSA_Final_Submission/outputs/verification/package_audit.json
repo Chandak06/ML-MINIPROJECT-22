@@ -1,0 +1,17 @@
+{
+  "utc_time": "2026-10-08T13:08:17.164263+00:00",
+  "status": "passed",
+  "scope": "Provisional archive extraction, byte equality and actual CLI prediction. Final archive rebuilt after the last verifier to include its logs.",
+  "single_top_level_folder": "Team22_ABSA_Final_Submission",
+  "crc": "passed",
+  "extracted_files_match_source": true,
+  "extracted_cli": "passed",
+  "excluded": [
+    ".build",
+    ".git",
+    ".pytest_cache",
+    ".venv",
+    "__pycache__"
+  ],
+  "provisional_file_count": 170
+}

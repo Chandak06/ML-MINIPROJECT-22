@@ -1,15 +1,14 @@
 {
+  "utc_time": "2026-10-08T13:05:57.620735+00:00",
   "status": "passed",
   "report_pages": 2,
-  "presentation_slides": 11,
-  "native_tables": 3,
-  "native_charts": 1,
-  "embedded_chart_workbooks": 1,
-  "chart_values_match_metrics": true,
-  "software_test_count_in_both_documents": 42,
-  "visual_review": "Both rendered PDF pages and all 11 rendered slides inspected; no clipping or overlap observed.",
+  "presentation_slides": 13,
+  "visual_review": "Both PDF pages and all 13 final slide PNGs individually inspected; no clipping or overlapping text found.",
+  "presentation_validation": "Package integrity, geometry, fonts, editable tables/chart workbook and artifact-tool import passed.",
+  "application_scope": "Rendered with Poppler and artifact-tool; not opened in native PowerPoint.",
   "sha256": {
-    "ABSA_Hotel_Reviews_Final_Writeup.pdf": "8bc2e57922646aa066ea990668c981ece6cf590935aad3cee09b4de8fd4aa1aa",
-    "ABSA_Hotel_Reviews_Final_Presentation.pptx": "b9260a0b36161a49a77af2e4bf671339a9350d7c74891744fa7c261ffc918953"
-  }
+    "ABSA_Hotel_Reviews_Final_Writeup.pdf": "a7a263ae3c1145db87efaacfbbc31c11e31f1216ad1d312da3ecd4b7928db187",
+    "ABSA_Hotel_Reviews_Final_Presentation.pptx": "50dee4aa053467d107ec5e260e109018a7b78f69bf2a2b7b407d5619cf8e9367"
+  },
+  "metrics_sha256": "860d26eb464ffc4820b52dba51aaad6780efde62cb4b4e0e1ec0ec8bec16a9ca"
 }

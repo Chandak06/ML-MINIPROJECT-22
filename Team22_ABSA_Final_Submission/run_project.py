@@ -29,6 +29,9 @@ def main():
         if not data.exists():
             parser.error(f"Dataset missing: {data}. Run python prepare_data.py first.")
         metrics = train_and_evaluate(load_dataset(data), output, models, args.seed, data.name)
+        if args.dataset == "real" and args.data is None and output.resolve() == (ROOT / "outputs/real").resolve() and models.resolve() == (ROOT / "models/real").resolve():
+            from src.diagnostics import refresh_prediction_examples
+            refresh_prediction_examples(ROOT)
         print(f"\nCompleted {len(metrics)} targets. Results: {output / 'metrics.csv'}")
     except (ValueError, FileNotFoundError) as exc:
         parser.exit(2, f"Error: {exc}\n")

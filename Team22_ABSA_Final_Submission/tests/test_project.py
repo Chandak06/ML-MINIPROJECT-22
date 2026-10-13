@@ -231,7 +231,9 @@ class DeliveredArtifactTests(unittest.TestCase):
             metrics = pd.read_csv(out / "metrics.csv")
             for _, metric in metrics.iterrows():
                 rows = predictions[predictions.target == metric.target]
-                pred = predictor.models[metric.target].predict(data.loc[rows.review_id.astype(str), "clean_review"])
+                # Routing needs raw punctuation. Preprocessing is now serialized
+                # inside each pipeline; bypassing it would change the input API.
+                pred = predictor.models[metric.target].predict(data.loc[rows.review_id.astype(str), "review_text"])
                 np.testing.assert_array_equal(pred, rows.predicted_rating)
                 self.assertAlmostEqual(accuracy_score(rows.actual_polarity, rows.predicted_polarity), metric.test_polarity_accuracy)
                 self.assertAlmostEqual(f1_score(rows.actual_polarity, rows.predicted_polarity, labels=["negative", "neutral", "positive"], average="macro", zero_division=0), metric.test_polarity_macro_f1)
@@ -256,7 +258,12 @@ class DeliveredArtifactTests(unittest.TestCase):
         app.button[0].click().run()
         self.assertEqual(len(app.exception), 0)
         self.assertEqual(len(app.error), 0)
-        self.assertGreaterEqual(len(app.dataframe), 1)
+        # Preserve the user's HTML-table UI and check the actual rendered table.
+        tables = [element.value for element in app.markdown if "<table" in element.value]
+        self.assertGreaterEqual(len(tables), 1)
+        for heading in ["Aspect", "Relevant evidence", "Rating", "Polarity", "Confidence", "Status"]:
+            self.assertIn(heading, tables[0])
+        self.assertIn("Sleep Quality", tables[0])
         app.text_area[0].input("!!!")
         app.button[0].click().run()
         self.assertEqual(len(app.error), 1)

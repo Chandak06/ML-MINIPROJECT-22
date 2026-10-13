@@ -1,0 +1,293 @@
+{
+  "schema_version": 2,
+  "dataset": "hotel_reviews_sample.csv",
+  "dataset_sha256": "c04c6b0e5d5c43a8d5c3744213fb658744493a4ad15081cd1230c77f318bbbcb",
+  "seed": 42,
+  "rows": 320,
+  "split_counts": {
+    "train": 192,
+    "validation": 64,
+    "test": 64
+  },
+  "split_method": "deduplicated_review_random",
+  "selection": "validation polarity macro-F1; star accuracy; prefer full review on ties; model name",
+  "evaluation": "Select every configuration and uncertainty threshold before refit and test. Refit on train+validation. Test rows excluded from every fit.",
+  "mention_detection_version": "clauses-v1",
+  "confidence_definition": "Estimated probability of the base model's predicted polarity; native NB/LR probabilities are uncalibrated. SVM uses sigmoid OOF calibration.",
+  "uncertainty_selection": "Maximize balanced accuracy of validation correctness detection; ties favor coverage. Threshold frozen before refit.",
+  "versions": {
+    "python": "3.11.9",
+    "scikit_learn": "1.9.0",
+    "pandas": "3.0.3",
+    "numpy": "2.4.6",
+    "joblib": "1.5.3"
+  },
+  "source_sha256": {
+    "train.py": "812f370020c78fe090d3f28e1147999a287b89cb3e1ba94578f4c1bfc24d1d76",
+    "utils.py": "759aaaa51b9fa6f8230a5ea07d06dbe21073b8ad9180c09178085ef746f5452a",
+    "aspect_router.py": "d5acfe3700ac2ff5d2286b2473532d1d1e949d5ae48a9f24ab2d0eeb8df1c108",
+    "confidence.py": "f168b64116af052d06663f304d289c82db3489d4f65516d03a284cc1e5a53a19",
+    "evaluation.py": "3bccd507d90556841f0ac9b480a28ca48162b1f1a10004d56fd7c98f4e61ac4b"
+  },
+  "targets": {
+    "overall_rating": {
+      "status": "trained",
+      "target": "overall_rating",
+      "model": "LogReg_TFIDF",
+      "classifier": "LogisticRegression",
+      "vectorizer": "TfidfVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "full_review",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 0.5802968960863698,
+      "confidence_method": "native_probability_uncalibrated",
+      "uncertainty": {
+        "threshold": 0.6599756743062047,
+        "selection_score": 0.8839285714285714,
+        "validation_coverage": 0.671875,
+        "validation_n": 64,
+        "reason": "validation_correctness_balanced_accuracy"
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LogReg_TFIDF"
+    },
+    "service": {
+      "status": "trained",
+      "target": "service",
+      "model": "LinearSVC_Count_2gram",
+      "classifier": "LinearSVC",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "aspect_text",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 1.0,
+      "confidence_method": "sigmoid_stratified_oof",
+      "uncertainty": {
+        "threshold": 0.0,
+        "selection_score": null,
+        "reason": "all_validation_polarities_correct",
+        "validation_n": 64
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LinearSVC_Count_2gram"
+    },
+    "rooms": {
+      "status": "trained",
+      "target": "rooms",
+      "model": "LogReg_TFIDF",
+      "classifier": "LogisticRegression",
+      "vectorizer": "TfidfVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "aspect_text",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 0.9733333333333333,
+      "confidence_method": "native_probability_uncalibrated",
+      "uncertainty": {
+        "threshold": 0.6286533496375651,
+        "selection_score": 1.0,
+        "validation_coverage": 0.984375,
+        "validation_n": 64,
+        "reason": "validation_correctness_balanced_accuracy"
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LinearSVC_Count_2gram"
+    },
+    "location": {
+      "status": "trained",
+      "target": "location",
+      "model": "MultinomialNB_TFIDF",
+      "classifier": "MultinomialNB",
+      "vectorizer": "TfidfVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "aspect_text",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 1.0,
+      "confidence_method": "native_probability_uncalibrated",
+      "uncertainty": {
+        "threshold": 0.0,
+        "selection_score": null,
+        "reason": "all_validation_polarities_correct",
+        "validation_n": 64
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LinearSVC_Count_2gram"
+    },
+    "value": {
+      "status": "trained",
+      "target": "value",
+      "model": "LogReg_TFIDF",
+      "classifier": "LogisticRegression",
+      "vectorizer": "TfidfVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "full_review",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 0.9850680720245938,
+      "confidence_method": "native_probability_uncalibrated",
+      "uncertainty": {
+        "threshold": 0.45830981555455996,
+        "selection_score": 1.0,
+        "validation_coverage": 0.984375,
+        "validation_n": 64,
+        "reason": "validation_correctness_balanced_accuracy"
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LogReg_TFIDF"
+    },
+    "cleanliness": {
+      "status": "trained",
+      "target": "cleanliness",
+      "model": "LinearSVC_Count_2gram",
+      "classifier": "LinearSVC",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "aspect_text",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 1.0,
+      "confidence_method": "sigmoid_stratified_oof",
+      "uncertainty": {
+        "threshold": 0.0,
+        "selection_score": null,
+        "reason": "all_validation_polarities_correct",
+        "validation_n": 64
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LinearSVC_Count_2gram"
+    },
+    "sleep_quality": {
+      "status": "trained",
+      "target": "sleep_quality",
+      "model": "LinearSVC_Count_2gram",
+      "classifier": "LinearSVC",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "aspect_text",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 1.0,
+      "confidence_method": "sigmoid_stratified_oof",
+      "uncertainty": {
+        "threshold": 0.0,
+        "selection_score": null,
+        "reason": "all_validation_polarities_correct",
+        "validation_n": 64
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LinearSVC_Count_2gram"
+    },
+    "business_service": {
+      "status": "trained",
+      "target": "business_service",
+      "model": "LinearSVC_Count_2gram",
+      "classifier": "LinearSVC",
+      "vectorizer": "CountVectorizer",
+      "ngram_range": [
+        1,
+        2
+      ],
+      "routing_strategy": "aspect_text",
+      "mention_detection_version": "clauses-v1",
+      "selected_on": "validation_polarity_macro_f1",
+      "validation_macro_f1": 1.0,
+      "confidence_method": "sigmoid_stratified_oof",
+      "uncertainty": {
+        "threshold": 0.0,
+        "selection_score": null,
+        "reason": "all_validation_polarities_correct",
+        "validation_n": 64
+      },
+      "counts": {
+        "train": 192,
+        "validation": 64,
+        "test": 64
+      },
+      "training_rows": 192,
+      "validation_rows": 64,
+      "test_rows": 64,
+      "seed": 42,
+      "full_review_baseline_model": "LogReg_TFIDF"
+    }
+  }
+}

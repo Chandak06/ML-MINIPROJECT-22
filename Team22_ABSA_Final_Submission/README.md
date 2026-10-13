@@ -1,167 +1,178 @@
 # Aspect-Based Sentiment Analysis on Hotel Reviews
 
-**UE24CS352A Machine Learning | Team 22 | Project 1**  
-PES2UG24CS185 Harshit Chandak; PES2UG24CS133 Chinmayee C M
+**Team 22 | UE24CS352A Machine Learning | Project 1**  
+Harshit Chandak (PES2UG24CS185) and Chinmayee C M (PES2UG24CS133)
 
-A working supervised text-classification project with real-data evaluation, a clearly separated synthetic demo, saved models, a Streamlit interface and automated verification.
+This classical ML mini-project predicts overall and aspect-specific hotel ratings (1–5), then maps 1–2 to negative, 3 to neutral and 4–5 to positive. The upgraded version compares full-review and routed-clause features, shows the actual evidence used, and abstains when confidence falls below a validation-derived threshold. Cross-aspect contamination is reduced in some cases but remains unresolved for others.
 
-## Problem Statement
+## Setup and exact commands
 
-Traditional sentiment analysis assigns one label to the whole review. A guest can praise the location while criticizing service or cleanliness, so an overall label can hide useful detail. This implementation predicts overall ratings and separate ratings for service, rooms, location, value, cleanliness, sleep quality and business service. The real corpus supports all of these except sleep quality. Food/breakfast and general amenities are not separate trained targets. Aspect mentions are detected by an explicit keyword heuristic; sentiment/rating classification uses trained whole-review text models, not a learned span extractor.
-
-## Project Structure
-
-```text
-Team22_ABSA_Final_Submission/
-  README.md, CONTRIBUTIONS.md, DEMO_GUIDE.md
-  requirements.txt, setup.cmd, start_demo.cmd, .gitignore
-  run_project.py          Training and prediction CLI
-  prepare_data.py         Reproducible corpus conversion
-  streamlit_app.py        Interactive demonstration
-  verify_project.py      Full local submission verification
-  src/                   Production model/preprocessing modules
-  data/                  Required CSVs and real-data provenance
-  models/real/           Evaluated real-data models and manifest
-  models/synthetic/      Optional demo models used by existing tests
-  tests/                 Original tests plus audit regression tests
-  outputs/real/          Final real-data evaluation evidence
-  outputs/synthetic/     Minimal evidence required by retained regression tests
-  outputs/verification/  Actual verification and audit results
-  outputs/demo_predictions.json   All five documented demo outputs
-  docs/                  One final two-page PDF and one final slide deck
-  .github/workflows/     Verification workflow for the future repository
-```
-
-No virtual environment, cached source archive, nested project, old report or old slide deck belongs in the final ZIP. Synthetic data/models are retained only because the working optional demo and existing regression tests use them; obsolete synthetic-only documents are excluded.
-
-## Start here
-
-Use Python 3.11. From this project directory:
+From this project directory on Windows, use Python 3.11 and the pinned dependencies:
 
 ```powershell
-python -m venv .venv
+py -3.11 -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 .venv\Scripts\python.exe verify_project.py
 .venv\Scripts\python.exe -m streamlit run streamlit_app.py
 ```
 
-Open http://localhost:8501. On macOS/Linux use `.venv/bin/python` in place of `.venv\Scripts\python.exe`. Activating the environment is optional. The remaining examples assume `python` refers to this environment. Exact tested package versions are pinned; dependencies need internet on first setup. Included models and converted datasets allow offline predictions, evaluation and tests afterward.
-
-## Reproduce training
+Open http://localhost:8501. On Linux/macOS substitute `.venv/bin/python`. The following commands assume the environment is active, so `python` resolves to its interpreter:
 
 ```powershell
 python run_project.py
+python run_project.py --dataset real
 python run_project.py --dataset synthetic
-```
-
-The default uses real reviews; the second command is explicitly a synthetic demonstration. Outputs are isolated under `outputs/real` and `outputs/synthetic`; models are under `models/real` and `models/synthetic`. Paths resolve from the script location, so the CLI works from another directory. Expect training to take longer than prediction.
-
-To recreate the real CSV from its published source:
-
-```powershell
-python prepare_data.py
-```
-
-The downloader validates the published ZIP checksum and converts only corpus XMI documents. It reads XML, never executes source archive content. Data are for scientific use only. The converted CSV and provenance JSON are included.
-
-## Predict without retraining
-
-```powershell
 python run_project.py --review "The staff were helpful, but the room was dirty."
-python run_project.py --dataset synthetic --review "The room was comfortable and sleep was quiet."
+python run_project.py --include-unmentioned --review "The staff were friendly."
+python -m streamlit run streamlit_app.py --browser.gatherUsageStats false
+python -m unittest discover -s tests -v
+python verify_project.py
 ```
 
-`--review` loads saved models only. By default unmentioned aspects have a null rating and `not_mentioned` status. `--include-unmentioned` returns model estimates for all trained aspects. A keyword heuristic detects mentions and can miss paraphrases; it is not a learned aspect extractor. The model uses the entire review for each aspect and can make mistakes.
-
-Possible statuses: `predicted`, `not_mentioned`, `unavailable` (no trained labels), and `unknown_vocabulary`. Empty, punctuation-only and excessively long input are rejected. Load only trusted project model files: joblib is a Python serialization format, not a safe format for arbitrary model downloads. File hashes check corruption, not publisher authenticity.
+The first two training commands are equivalent. Prediction loads saved models without training. Training regenerates metrics, validation-confidence evidence, manifests and real demo predictions. The included datasets/models allow offline prediction after dependency setup. `python prepare_data.py` recreates the real CSV from the published archive and verifies its checksum. The ZIP excludes the local virtual environment.
 
 ## Data and provenance
 
-| Dataset | Reviews | Purpose | Label coverage |
+| Data | Reviews | Purpose | Supported labels |
 |---|---:|---|---|
-| ArguAna TripAdvisor annotated v2 | 2,100 from 122 hotels | Primary real-data evaluation | Overall and six aspects |
-| Supplied sample | 320 | Synthetic functional demonstration | Overall and seven aspects |
+| ArguAna TripAdvisor annotated v2 | 2,100 from 122 hotels | Primary evaluation | Overall and six aspects |
+| Supplied synthetic sample | 320 | DEMONSTRATION ONLY | Overall and seven aspects |
 
-The real corpus comes from [Wachsmuth et al., A Review Corpus for Argumentation Analysis, CICLing 2014](https://zenodo.org/records/3973241). Review title and text are in `Sofa.sofaString`; overall rating comes from `Sentiment.score`, never `HotelData.stars`. `Aspects.room` maps to rooms and `Aspects.business` to business service. Other fields retain their meaning. Source -1 becomes missing. Reviewer author/date fields are omitted from the converted CSV. The corpus is scientifically usable, not for commercial applications.
+The [ArguAna corpus](https://zenodo.org/records/3973241) accompanies Wachsmuth et al. (2014), *A Review Corpus for Argumentation Analysis*. Its usage terms allow scientific use, not commercial applications. Title and review text come from XMI Sofa text, overall rating from `Sentiment.score` (never hotel category), and aspect ratings from the `Aspects` fields. The conversion omits author metadata. Source -1 stays missing. Provenance records source and CSV checksums.
 
-Real label counts: overall 2,100; service 1,608; rooms 1,647; location 1,238; value 1,631; cleanliness 1,651; business service 772. **Sleep quality has no real labels and is unavailable in real mode.** No aspect ratings are invented. The source corpus is balanced by overall sentiment and does not represent current hotel traffic.
+Observed labels: Overall 2,100; Service 1,608; Rooms 1,647; Location 1,238; Value 1,631; Cleanliness 1,651; Business Service 772. **Real Sleep Quality has zero usable labels and remains unavailable.** Missing labels are excluded per target, never filled from predictions. The real corpus is historical, English and balanced by overall sentiment. Synthetic templates have no supplied generator/provenance and are never combined with primary evaluation.
 
-The supplied synthetic sample visibly reuses sentence templates. Its generator and external provenance were not provided. Its high scores must not be represented as real-world accuracy or as a reproduction of the Stanford paper.
+## Architecture and routing
 
-## Evaluation method
+Previously, every aspect classifier consumed the whole normalized review. Now a stateless transformer sits inside each candidate pipeline:
 
-- Normalize text while preserving negations; detect conflicting duplicate text and remove exact normalized duplicates before splitting.
-- Use seed 42. Keep hotels disjoint across real-data partitions: 1,342 train, 388 validation, 370 test reviews. Split fractions refer to hotels, so review proportions vary. Synthetic data use 192/64/64 distinct review splits.
-- Compare Multinomial NB with TF-IDF, balanced Linear SVM with counts, and balanced Logistic Regression with TF-IDF. All use unigrams/bigrams and a 12,000-feature cap. Pipeline features are fitted only on training data during selection.
-- Select by validation polarity macro-F1, then star accuracy, then model name to break ties. Refit on train plus validation. Test labels never participate in fitting or selection.
-- Omit missing labels separately per target. The saved final models exclude every test review.
-- Evaluate exact-star accuracy, star macro-F1 and MAE, polarity accuracy and macro-F1. Stars 1-2 are negative, 3 neutral, 4-5 positive. Polarity macro-F1 includes all three labels equally.
-- Train separate majority-star and majority-polarity baselines on development labels. Also compare aspect models to the overall model evaluated against aspect labels.
-
-These are fixed pipeline configurations, not a classifier-only ablation or an exhaustive hyperparameter search. Wilson intervals in the CSV describe per-review accuracy and do not adjust for within-hotel dependence. Report the fixed split as a limited experiment, not an exact estimate of deployment performance.
-
-**Metric definitions:** accuracy is the fraction of correct predictions. For each class, precision is the fraction of predicted members that are correct; recall is the fraction of actual members found. F1 is their harmonic mean. Macro-F1 averages class F1 scores equally, making minority-class errors visible. Per-class precision, recall and F1 are in the classification reports. Star MAE is the average absolute error in stars. None of these metrics evaluate the keyword mention filter.
-
-## Real-data results
-
-| Target | Test reviews | Star accuracy | Polarity accuracy | Polarity macro-F1 | Majority polarity accuracy |
-|---|---:|---:|---:|---:|---:|
-| Overall | 370 | 51.1% | 74.6% | 0.709 | 32.4% |
-| Service | 271 | 44.6% | 68.3% | 0.628 | 45.0% |
-| Rooms | 276 | 39.1% | 60.9% | 0.560 | 47.8% |
-| Location | 223 | 47.5% | 74.4% | 0.423 | 78.9% |
-| Value | 279 | 46.2% | 62.4% | 0.615 | 37.3% |
-| Cleanliness | 278 | 46.4% | 64.7% | 0.539 | 61.5% |
-| Business service | 130 | 38.5% | 55.4% | 0.558 | 39.2% |
-
-Location loses to the majority polarity baseline on accuracy. Aspect-specific training beats the overall-model transfer only for rooms, location and cleanliness in this experiment. High polarity accuracy does not mean exact star ratings are equally accurate. See saved error examples and per-class reports.
-
-## Testing and evidence
-
-```powershell
-python verify_project.py
-# Alternative without writing a report:
-python -m unittest discover -s tests -v
+```text
+Review → sentence/clause segmentation → aspect mentions and evidence
+       → selected full_review OR aspect_text transformer
+       → training-fitted count/TF-IDF features → classifier → stars/polarity
+       → probabilities + validation threshold → UI/CLI status
 ```
 
-The original 33 tests are retained. Nine audit regression tests cover incomplete hotel IDs, false-positive readiness results, invalid/duplicate documents and reproducibility of the five demo outputs. The full suite contains **42 tests**; the actual latest run status is in `outputs/verification/test_summary.json`. Tests also cover invalid input, missing labels, duplicates, disjoint/reproducible splits, held-out vocabulary, validation-based selection, serialization, corrupted models, positive/negative fixture behavior, inference without retraining, independent metric/baseline recomputation and Streamlit interactions in both modes. Fixture sentiment checks concern controlled test data, not every natural-language review.
+`src/aspect_router.py` splits sentence punctuation and useful contrast/independent clauses. It preserves shared noun lists, multiple aspect assignments and useful negation including contractions. Rules support staff/reception/check-in, room/bathroom/AC, location/station, price/value, dirty/spotless and wifi/conference variants. “Room service” and “front desk” have contextual exceptions. Restrained pronoun carry-over helps simple adjacent clauses. The vocabulary is fixed from the task before evaluating new test results; the router learns no corpus parameters.
 
-`verify_project.py` writes the actual run log and JSON summary under `outputs/verification/`. The checked-in CI workflow runs the same suite; it has not run on GitHub until the repository is uploaded. Software tests do not guarantee every model prediction is correct.
+Both candidate training and inference use the same serialized transformer. Confident routing uses `aspect_text`. Ambiguous routing or a labelled row without explicit mention uses `whole_review_fallback` with a reason. A validation-selected full-review model honestly reports `whole_review_selected`; it does not pretend to use only the displayed relevant clause. Overall always uses the whole review. `routed_aspect_text` exposes the extracted clause separately from `evidence`, the actual model input.
 
-The verifier checks required structure, pinned package versions and imports, `pip check`, dataset/provenance/split consistency, both model sets, sample predictions, CLI inference without retraining, PDF presence/format, presentation OOXML integrity and the complete test suite. Any failed check returns a nonzero exit code. PDF page count and visual slide checks are recorded by the final artifact audit; the runtime file-format checks do not replace visual review. The READY verdict concerns the local technical package, not manual repository access or contribution approval.
+Mention detection is a transparent heuristic, not a trained span detector. Coverage on rated rows and fixed routing tests are supplied; no mention precision/recall is claimed without gold mention annotations.
 
-The final audit also installed `requirements.txt` in a fresh isolated Python 3.11.9 environment and ran the complete verifier there. Streamlit's application and health endpoints returned HTTP 200. Full real-data retraining reproduced the saved metrics, model-comparison scores, split manifest and test predictions exactly. See `outputs/verification/clean_install.json`, `streamlit_startup.json`, `reproducibility_check.json`, `document_audit.json` and `security_and_package_audit.json` for the corresponding evidence.
+## Confidence, abstention and UI
 
-## Files for evaluation
+NB/LR expose native, **uncalibrated** probabilities. Confidence sums class probabilities for the polarity of the base model's predicted rating; `rating_confidence` is the exact-star probability. SVM uses sigmoid calibration on out-of-fold development predictions, with hotel-aware folds when hotels exist. Calibration never uses test labels. See the [scikit-learn calibration method](https://scikit-learn.org/stable/modules/calibration.html). Current real winners are NB/LR; calibrated SVM is used by selected synthetic models and tested with hotel-group fixtures.
 
-- `docs/ABSA_Hotel_Reviews_Final_Writeup.pdf`: two-page project summary.
-- `docs/ABSA_Hotel_Reviews_Final_Presentation.pptx`: presentation for review.
-- `DEMO_GUIDE.md`: exact commands, five pre-tested examples including errors, and viva discussion points.
-- `outputs/real/metrics.csv`: final test metrics for validation-selected models.
-- `outputs/real/validation_model_comparison.csv`: comparison used to choose models.
-- `outputs/real/split_manifest.csv`: review hashes, hotel IDs and partitions.
-- `outputs/real/test_predictions.csv`: every scored test prediction with true labels.
-- `outputs/real/*_classification_report.json` and `*_confusion_matrix.csv`: class-level evidence.
-- `outputs/real/error_examples.csv`: actual errors for discussion.
-- `outputs/real/run_metadata.json`: dataset fingerprint, seed, split sizes, versions and model selection.
-- `outputs/verification/test_results.txt`: complete test log.
+For each selected model, a training-only fit predicts validation rows. The confidence threshold maximizes balanced accuracy for distinguishing correct from incorrect validation polarity predictions, with ties favoring coverage. It is frozen before refitting on train + validation. Refit changes probability distributions, so thresholds are useful heuristics, not guaranteed risk control. Calibration fold memberships and raw validation confidence/correctness rows are saved for audit.
 
-## Custom data
+Statuses: `predicted`, `uncertain`, `not_mentioned`, `unavailable`, plus the preserved `unknown_vocabulary` state. Uncertain outputs have null `rating`/`polarity`; tentative `candidate_rating`/`candidate_polarity` remain in details. Empty, punctuation-only and excessive input is rejected. Sleep Quality remains unavailable even with estimates enabled. Unmentioned estimates are off by default and explicitly labelled when requested.
 
-Supply `review_text`, `overall_rating` and the seven aspect columns listed in `src/config.py`. Ratings must be integer 1-5 or blank; overall labels cannot be blank. Review IDs are generated if absent. Provide `hotel_id` for hotel-disjoint evaluation and at least five distinct hotels. At least 30 distinct reviews are required; each trained target needs at least five observed labels in each partition and two training classes.
+The Streamlit table shows Aspect, Relevant evidence, Rating, Polarity, Confidence and Status. Expand details to see selected strategy, relevant clauses, actual input source and tentative estimates. The existing escaped HTML table presentation is preserved. Confidence is model output, not an invented correctness percentage.
+
+## Evaluation protocol
+
+Seed 42 preserves the original hotel-disjoint **1,342 train / 388 validation / 370 test** split. Synthetic data have separate 192/64/64 review partitions. Candidate features and IDF learn only from training rows. Per target, compare three unchanged families across both text strategies (six candidates):
+
+| Family | Features | Fixed settings |
+|---|---|---|
+| Multinomial NB | TF-IDF unigrams/bigrams | alpha 0.5 |
+| Linear SVM | Count unigrams/bigrams | C 0.1, balanced classes |
+| Logistic Regression | TF-IDF unigrams/bigrams | C 4, balanced classes |
+
+Maximum vocabulary is 12,000. Validation polarity macro-F1 selects independently per target, then star accuracy, then full review and model name for deterministic ties. Overall's routing strategies are intentionally identical. Selected models refit on train + validation before test evaluation. Model/strategy/threshold selection completes before any new test scoring. Existing historical test scores were known, so the comparison is descriptive on a reused holdout, not a fresh confirmatory benchmark.
+
+Every observed test label is scored **before mention gating or confidence abstention**. Accuracy, per-class precision/recall/F1, macro-F1, confusion matrices, exact stars, star MAE and within-one-star accuracy are retained/exported. Macro-F1 weights classes equally; MAE respects distance between stars; within-one counts absolute error ≤1. Majority star and majority polarity baselines are independently fitted on development labels. Classification reports cover all five star classes and all three polarity classes.
+
+## Real held-out results
+
+| Target | n | Model / text | Star acc. | Within 1 | MAE | Polarity acc. | Macro-F1 | Majority polarity / star |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Overall | 370 | NB / full_review | 51.1% | 92.2% | 0.608 | 74.6% | 0.709 | 32.4% / 14.9% |
+| Service | 271 | LR / full_review | 44.6% | 84.5% | 0.764 | 68.3% | 0.628 | 45.0% / 22.1% |
+| Rooms | 276 | LR / full_review | 39.1% | 80.8% | 0.873 | 60.9% | 0.560 | 47.8% / 28.3% |
+| Location | 223 | LR / aspect_text | 42.2% | 83.0% | 0.807 | 72.2% | 0.383 | 78.9% / 43.5% |
+| Value | 279 | NB / full_review | 46.2% | 85.3% | 0.710 | 62.4% | 0.615 | 37.3% / 20.4% |
+| Cleanliness | 278 | LR / aspect_text | 43.9% | 81.7% | 0.784 | 65.1% | 0.566 | 61.5% / 33.5% |
+| Business Service | 130 | LR / full_review | 38.5% | 76.9% | 0.877 | 55.4% | 0.558 | 39.2% / 28.5% |
+
+NB = Naive Bayes; LR = Logistic Regression. Baselines in the last column show polarity and exact-star accuracy respectively. No real Sleep Quality model exists.
+
+| Target | Old val. F1 | New val. F1 | Old test F1 | New test F1 |
+| --- | --- | --- | --- | --- |
+| Overall | 0.666 | 0.666 | 0.709 | 0.709 |
+| Service | 0.635 | 0.635 | 0.628 | 0.628 |
+| Rooms | 0.588 | 0.588 | 0.560 | 0.560 |
+| Location | 0.411 | 0.413 | 0.423 | 0.383 |
+| Value | 0.600 | 0.600 | 0.615 | 0.615 |
+| Cleanliness | 0.504 | 0.567 | 0.539 | 0.566 |
+| Business Service | 0.548 | 0.548 | 0.558 | 0.558 |
+
+Cleanliness polarity macro-F1 improves by 0.027, but exact-star accuracy and MAE worsen. Location's tiny validation gain (0.002) does not generalize: polarity accuracy falls from 74.4% to 72.2%, below the 78.9% majority baseline. All five full-review targets retain identical held-out predictions. Strategy selection has not been reversed using test results.
+
+Hotel-level paired bootstrap uses 500 seeded replicates, resampling hotels with all their reviews. The 95% interval for Cleanliness macro-F1 change is [-0.064, +0.083]; Location is [-0.122, +0.088]. Both include zero. These conditional test intervals exclude model-fitting variability. Legacy Wilson intervals remain available but ignore hotel clustering.
+
+## Class imbalance and mixed-aspect errors
+
+Location has 176 positive, 27 neutral and 20 negative test ratings. New negative recall is 10.0%, neutral recall 14.8%, positive recall 88.1%. Positive dominance makes aggregate accuracy misleading. Routed training rows still need full-review fallback for 243/794 labelled Location reviews. A short isolated “location was terrible” remains wrongly positive, exposing a learned feature/model limitation even when routing is correct.
+
+Business Service has only 772 labels (499/143/130). Its balanced LR full-review model beats the majority polarity baseline (55.4% versus 39.2%), but class F1 remains 0.667 negative, 0.495 neutral and 0.512 positive. Only 149/499 training rows have confident explicit routed evidence, making aggressive routing a poor substitute for review-level supervision. No resampling or fabricated labels were added.
+
+On the descriptive subset where observed aspect polarities disagree, Cleanliness macro-F1 rises 0.511 → 0.560 (190 rows), Location falls 0.412 → 0.322 (162 rows), and Rooms stays 0.460 (189 rows). These labels are a mixed-opinion proxy, not annotated spans or a causal contamination measure. The fixed nine diagnostics include both improvements and remaining errors. See `DEMO_GUIDE.md` and `docs/UPGRADE_REPORT.md`.
+
+## Selective prediction results
+
+| Target | Threshold | Mean confidence | Accepted coverage | Accepted accuracy | UI coverage | UI accuracy |
+| --- | --- | --- | --- | --- | --- | --- |
+| Overall | 0.548 | 0.598 | 61.6% | 88.2% | 61.6% | 88.2% |
+| Service | 0.587 | 0.589 | 48.3% | 89.3% | 41.0% | 90.1% |
+| Rooms | 0.549 | 0.558 | 50.0% | 79.7% | 44.6% | 78.9% |
+| Location | 0.658 | 0.661 | 52.5% | 94.0% | 45.3% | 93.1% |
+| Value | 0.515 | 0.513 | 52.0% | 84.1% | 26.2% | 86.3% |
+| Cleanliness | 0.495 | 0.592 | 66.9% | 79.0% | 34.9% | 78.4% |
+| Business Service | 0.495 | 0.438 | 36.2% | 80.9% | 13.8% | 88.9% |
+
+Acceptance coverage considers the confidence threshold alone. UI coverage also requires an explicit mention and known vocabulary. Each denominator is all labelled test rows for that target. Selective accuracy must always be read together with coverage; it must never replace the all-row metrics above. Business Service's 13.8% UI coverage is a substantial limitation.
+
+## Verification and reproducibility
+
+**78 tests pass, with 0 failures, 0 errors and 0 skips.** The original 42 tests are preserved, with intentional interface corrections for raw text entering the new pipeline and HTML Streamlit tables. New tests distinguish deterministic routing/negation behavior from learned sentiment behavior. They check uncertainty, fallback, calibration, split isolation, validation selection, vocabulary, model integrity, CLI and Streamlit interactions in both modes. Diagnostic prediction snapshots are compared to actual saved models without asserting fabricated correct sentiments.
+
+`verify_project.py` checks pinned packages and `pip check`, dataset counts/provenance, no hotel overlap, all 15 models, schemas, actual CLI inference, real Streamlit startup/health, recomputed saved predictions/metrics/probabilities, candidate selection, validation thresholds, fitted vocabulary bounds, calibration-fold isolation, current PDF/PPT hashes, document/metric consistency and the complete test suite. It returns nonzero on failure and writes evidence under `outputs/verification/`.
+
+Full real and synthetic training was run, and the export-only repeat reproduced the evaluated results. The previous whole-review baseline exactly matches its archived metrics on the unchanged split. Raw selection, calibration and prediction evidence make these checks reviewable. Passing tests establishes software behavior and result consistency; it does not prove every English review receives the right sentiment.
+
+`.gitattributes` preserves Python/CSV bytes across Git checkouts so source and dataset integrity fingerprints stay valid on Windows and Linux.
+
+## Deliverables and output map
+
+| File or group | Purpose |
+|---|---|
+| `docs/ABSA_Hotel_Reviews_Final_Writeup.pdf` | Two-page summary of verified results |
+| `docs/ABSA_Hotel_Reviews_Final_Presentation.pptx` | Editable presentation with actual results and limitations |
+| `docs/UPGRADE_REPORT.md`, `DEMO_GUIDE.md` | Detailed audit, all nine hard examples, commands and viva guidance |
+| `metrics.csv`, `system_comparison.csv` | New metrics and paired old/new results |
+| `validation_model_comparison.csv`, `validation_predictions.csv` | All six candidates and validation predictions |
+| `validation_confidence_predictions.csv`, `confidence_analysis.csv` | Threshold reproduction, coverage and selective accuracy |
+| `test_predictions.csv`, `error_examples.csv` | Every test prediction and errors with evidence/confidence |
+| `per_class_metrics.csv`, `*_classification_report.*`, `*_confusion_matrix.csv` | Class precision/recall/F1 and star/polarity confusion matrices |
+| `label_distribution.csv`, `aspect_routing_evaluation.csv`, `mention_detection_examples.csv` | Label support, rule coverage and example mentions |
+| `hotel_bootstrap_metrics.csv`, `mixed_aspect_evaluation.csv` | Hotel uncertainty and mixed-label subset comparisons |
+| `split_manifest.csv`, `selection_manifest.json`, `run_metadata.json`, `calibration_folds.csv` | Split/selection/fitting provenance |
+| `difficult_review_comparison.json`, `counterfactual_diagnostics.csv` | All hard examples and controlled added-clause probes |
+| `outputs/verification/` | Actual tests, reproducibility and final document/package audit |
+
+CSV names above are under `outputs/real/`; synthetic outputs stay in `outputs/synthetic/`. Manifests include source hashes, routing version, model strategy, calibrated/native confidence method, row counts, seed, model hashes and fitted review-ID digest. Joblib files must come from a trusted source; integrity hashes detect corruption, not publisher authenticity.
+
+## Custom data and remaining limits
 
 ```powershell
 python run_project.py --data path/to/reviews.csv --out outputs/custom --models models/custom
 python run_project.py --models models/custom --review "The staff were helpful."
 ```
 
-Choose distinct custom directories to preserve the supplied reference results. Retrain if changing dependency versions; serialized scikit-learn models are tied to their training environment.
+Use the columns in `src/config.py`; ratings must be integer 1–5 or missing, with overall observed. Require at least 30 distinct reviews and five hotels when hotel IDs exist. Partial hotel IDs are rejected. Each trainable target needs at least five training and five validation labels and two training classes. A target with no test labels is explicitly unevaluated. Use distinct custom directories to retain the reference deliverables. Retraining after changing code/results requires refreshing and reviewing the PDF/PPT audit before a new submission-readiness claim.
 
-When `hotel_id` is supplied, every row must have a nonblank ID. Partial hotel IDs are rejected rather than silently falling back to a random review split. The included real-data split and metrics are unchanged by this guard.
-
-## Limitations
-
-Class imbalance can make accuracy misleading, especially for location. Some aspects have limited observed ratings. The full review is used for each model, so mixed sentiment and multi-aspect sentences can confuse the classifier. Implicit aspects and paraphrases may evade the keyword filter. Traditional unigram/bigram features have limited context and domain-specific vocabulary coverage. The corpus is historical, English-only and balanced by overall sentiment; it does not represent current hotel traffic. There are no real sleep-quality labels, and no food/breakfast model. The project is a university prototype, not a production-ready or perfectly accurate system. The demo guide explicitly records mistaken predictions.
+Rules miss implicit aspects, complex coreference, sarcasm and unsupported food opinions. Negation tokens are preserved, but “not bad” can still receive a negative learned prediction. Whole-review winners remain vulnerable to cross-aspect contamination. Routed models retain fallback rows and noisy review-level labels. Native probabilities need not be calibrated, and abstention does not guarantee correctness. One historical corpus and one reused split limit generalization. A transformer, more real labels, improved mention annotation and development-only cross-validation are future work only; no transformer results or production-readiness claims are made.
 
 ## Individual Contributions
 

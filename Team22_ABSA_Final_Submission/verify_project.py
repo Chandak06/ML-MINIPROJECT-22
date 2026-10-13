@@ -20,6 +20,7 @@ sys.dont_write_bytecode = True
 os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
 MODULES = {"pandas": "pandas", "scikit-learn": "sklearn", "matplotlib": "matplotlib", "numpy": "numpy", "joblib": "joblib", "streamlit": "streamlit"}
 SOURCE_FILES = ["README.md", "requirements.txt", "verify_project.py", "setup.cmd", "start_demo.cmd", ".gitignore", "run_project.py", "prepare_data.py", "streamlit_app.py", "CONTRIBUTIONS.md", "DEMO_GUIDE.md", "src/config.py", "src/utils.py", "src/train.py", "src/predict.py", "tests/test_project.py", "tests/test_readiness.py"]
+SOURCE_FILES += ["src/aspect_router.py", "src/confidence.py", "src/evaluation.py", "src/verification.py", "src/diagnostics.py", "tests/test_routing.py", "tests/test_artifacts.py"]
 REPORT = "ABSA_Hotel_Reviews_Final_Writeup.pdf"
 PRESENTATION = "ABSA_Hotel_Reviews_Final_Presentation.pptx"
 
@@ -48,7 +49,7 @@ def check_dependencies(root):
         require(actual == expected, f"{name}: installed {actual}, expected {expected}; install requirements.txt.")
         versions[name] = actual
     require(set(MODULES).issubset(versions), "A critical dependency is missing from requirements.txt.")
-    for module in ["src.config", "src.utils", "src.train", "src.predict", "prepare_data", "run_project", "streamlit.testing.v1"]:
+    for module in ["src.config", "src.utils", "src.train", "src.predict", "src.aspect_router", "src.confidence", "src.evaluation", "src.verification", "prepare_data", "run_project", "streamlit.testing.v1"]:
         importlib.import_module(module)
     result = subprocess.run([sys.executable, "-m", "pip", "check"], capture_output=True, text=True, timeout=90)
     require(result.returncode == 0, result.stdout.strip() or result.stderr.strip() or "pip check failed.")
@@ -65,6 +66,8 @@ def check_dataset(root):
     real = load_dataset(real_path)
     synthetic = load_dataset(root / "data/hotel_reviews_sample.csv")
     require(len(real) == provenance["rows"], "Real dataset row count differs from provenance.")
+    require(len(real) == 2100 and real.hotel_id.nunique() == 122, "Expected 2,100 real reviews from 122 hotels.")
+    require(len(synthetic) == 320, "Expected the separate 320-row synthetic demonstration.")
     require(real.sleep_quality.isna().all(), "Unexpected real sleep-quality labels: verify provenance.")
     split = pd.read_csv(root / "outputs/real/split_manifest.csv", dtype={"review_id": str, "hotel_id": str})
     run = json.loads((root / "outputs/real/run_metadata.json").read_text(encoding="utf8"))
@@ -74,6 +77,7 @@ def check_dataset(root):
     require(split.groupby("hotel_id").split.nunique().max() == 1, "Hotel leakage across partitions.")
     require(not split.text_hash.duplicated().any(), "Duplicate text in split manifest.")
     require(split.split.value_counts().to_dict() == run["split_counts"], "Split counts do not match run metadata.")
+    require(run["split_counts"] == {"train": 1342, "validation": 388, "test": 370}, "The established real split changed.")
     by_id = real.set_index("review_id")
     require(all(split.hotel_id == by_id.loc[split.review_id, "hotel_id"].to_numpy()), "Hotel IDs disagree with the dataset.")
     require(all(split.text_hash == by_id.loc[split.review_id, "text_hash"].to_numpy()), "Review hashes disagree with the dataset.")
@@ -86,10 +90,10 @@ def check_models(root):
     for mode in ["real", "synthetic"]:
         predictor = ReviewPredictor(root / "models" / mode)
         expected = sum(e["status"] == "trained" for e in predictor.manifest["targets"].values())
-        require(expected > 0 and len(predictor.models) == expected, f"Incomplete {mode} models.")
+        require(expected == (7 if mode == "real" else 8) and len(predictor.models) == expected, f"Incomplete {mode} models.")
         result = predictor.predict("The staff were helpful and the room was clean.")
-        require(result["Overall"]["status"] == "predicted", f"{mode} sample prediction did not produce a rating.")
-        require(result["Overall"]["rating"] in range(1, 6), "Invalid model rating.")
+        require(result["Overall"]["status"] in {"predicted", "uncertain"}, f"{mode} sample inference failed.")
+        require(result["Overall"]["candidate_rating"] in range(1, 6), "Invalid underlying model rating.")
         counts[mode] = expected
     return {"loaded_models": counts, "hash_checks": "passed", "sample_predictions": "passed"}
 
@@ -101,7 +105,8 @@ def check_cli(root):
     result = subprocess.run([sys.executable, "-B", "run_project.py", "--review", review], cwd=root, capture_output=True, text=True, timeout=90)
     require(result.returncode == 0, result.stderr.strip() or "CLI exited nonzero.")
     payload = json.loads(result.stdout)
-    require(payload["Overall"]["status"] == "predicted", "CLI returned no overall prediction.")
+    require(payload["Overall"]["status"] in {"predicted", "uncertain"}, "CLI inference failed.")
+    require(payload["Overall"]["candidate_rating"] in range(1, 6), "CLI returned no underlying rating estimate.")
     require([p.stat().st_mtime_ns for p in manifests] == before, "Prediction modified model manifests.")
     return {"exit_code": result.returncode, "overall": payload["Overall"], "retraining": False}
 
@@ -134,6 +139,16 @@ def run_tests(root):
     return summary, log.getvalue()
 
 
+def check_document_consistency(root):
+    import hashlib
+    audit = json.loads((root / "outputs/verification/document_audit.json").read_text(encoding="utf8"))
+    require(audit["status"] == "passed" and audit["report_pages"] == 2, "Final document audit is incomplete.")
+    for name in [REPORT, PRESENTATION]:
+        require(hashlib.sha256((root / "docs" / name).read_bytes()).hexdigest() == audit["sha256"][name], f"{name} changed after visual review.")
+    require(hashlib.sha256((root / "outputs/real/metrics.csv").read_bytes()).hexdigest() == audit["metrics_sha256"], "Documents do not match current evaluation results.")
+    return {"report_pages": audit["report_pages"], "presentation_slides": audit["presentation_slides"], "visual_audit_hashes": "passed", "current_metrics": "matched"}
+
+
 def ready(checks):
     return bool(checks) and all(c["passed"] for c in checks)
 
@@ -152,8 +167,23 @@ def verify(root=ROOT):
     execute("Dataset", check_dataset)
     execute("Model loading", check_models)
     execute("CLI prediction", check_cli)
+    # Imports are inside the checks so a missing dependency becomes FAIL rather
+    # than terminating the verifier before its clean summary.
+    def routing(root):
+        from src.verification import check_routing_schema
+        return check_routing_schema(root)
+    def results(root):
+        from src.verification import check_saved_results
+        return check_saved_results(root)
+    def server(root):
+        from src.verification import check_streamlit_startup
+        return check_streamlit_startup(root)
+    execute("Aspect routing and prediction schema", routing)
+    execute("Saved metrics, selection and leakage checks", results)
+    execute("Streamlit startup", server)
     execute("Final report", check_report)
     execute("Final presentation", check_presentation)
+    execute("Document consistency with current results", check_document_consistency)
     tests = {"tests_run": 0, "failures": 0, "errors": 0, "skipped": 0, "successful": False}
     log = "Tests could not start.\n"
     try:

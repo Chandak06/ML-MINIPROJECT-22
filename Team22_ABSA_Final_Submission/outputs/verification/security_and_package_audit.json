@@ -1,13 +1,21 @@
 {
+  "utc_time": "2026-10-08T13:05:57.620735+00:00",
   "status": "passed",
-  "scope": "Entire final submission tree, including dataset text and extracted document text. Pattern scan is not a guarantee of absence of every possible secret.",
-  "text_files_scanned": 65,
+  "scope": "Distributable project files only; installed .venv and caches excluded. Pattern scan is limited to listed credential formats, not a guarantee against every secret.",
+  "text_files_scanned": 146,
   "credential_indicators": [],
   "machine_absolute_paths": [],
   "forbidden_entries": [],
   "files_over_100_MiB": [],
-  "largest_file": "data/hotel_reviews_real.csv",
-  "largest_file_bytes": 2184807,
+  "largest_file": "outputs/real/test_predictions.csv",
+  "largest_file_bytes": 4752498,
   "pdf_count": 1,
-  "pptx_count": 1
+  "pptx_count": 1,
+  "excluded_directories": [
+    ".venv",
+    "__pycache__",
+    ".git",
+    ".build",
+    ".pytest_cache"
+  ]
 }

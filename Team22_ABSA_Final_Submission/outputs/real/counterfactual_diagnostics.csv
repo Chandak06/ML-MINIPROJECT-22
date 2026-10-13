@@ -1,0 +1,6 @@
+aspect,base_review,augmented_review,old_base_rating,old_augmented_rating,new_base_rating,new_augmented_rating,old_changed,new_changed,strategy,new_status,new_evidence
+Rooms,The room was dirty.,"The location was excellent and the staff were helpful, but the room was dirty.",1,2,1,2,True,True,full_review,uncertain,"The location was excellent and the staff were helpful, but the room was dirty."
+Cleanliness,The room was dirty.,"The location was excellent and the staff were helpful, but the room was dirty.",1,5,2,2,True,False,aspect_text,predicted,the room was dirty.
+Location,The location was terrible.,"The location was terrible, but everything else about the hotel was fantastic.",5,5,5,5,False,False,aspect_text,predicted,The location was terrible
+Service,The receptionist was extremely rude.,"The room was spotless, but the receptionist was extremely rude.",2,2,2,2,False,False,full_review,uncertain,"The room was spotless, but the receptionist was extremely rude."
+Value,The hotel was expensive.,The hotel was expensive but perfectly located near the station.,4,4,4,4,False,False,full_review,predicted,The hotel was expensive but perfectly located near the station.

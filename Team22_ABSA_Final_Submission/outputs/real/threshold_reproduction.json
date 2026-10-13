@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "targets": [
+    {
+      "target": "overall_rating",
+      "status": "passed",
+      "threshold": 0.5475664627441945,
+      "validation_n": 388,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "service",
+      "status": "passed",
+      "threshold": 0.5872812153108373,
+      "validation_n": 308,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "rooms",
+      "status": "passed",
+      "threshold": 0.549056375633207,
+      "validation_n": 314,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "location",
+      "status": "passed",
+      "threshold": 0.6580895063189559,
+      "validation_n": 221,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "value",
+      "status": "passed",
+      "threshold": 0.5151392536963089,
+      "validation_n": 310,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "cleanliness",
+      "status": "passed",
+      "threshold": 0.49523022856770577,
+      "validation_n": 316,
+      "fit_population": "training_only"
+    },
+    {
+      "target": "business_service",
+      "status": "passed",
+      "threshold": 0.4949061177947518,
+      "validation_n": 143,
+      "fit_population": "training_only"
+    }
+  ],
+  "method": "Refit fixed selected configurations on training only; reproduce validation probabilities and thresholds. No parameter changes."
+}

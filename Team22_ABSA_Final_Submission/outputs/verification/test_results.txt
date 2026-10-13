@@ -1,3 +1,10 @@
+test_confidence_manifest_mismatch_is_rejected (test_artifacts.UpdatedArtifactTests.test_confidence_manifest_mismatch_is_rejected) ... ok
+test_difficult_examples_are_reproducible_not_hardcoded (test_artifacts.UpdatedArtifactTests.test_difficult_examples_are_reproducible_not_hardcoded) ... ok
+test_real_and_synthetic_schema_mentions_and_availability (test_artifacts.UpdatedArtifactTests.test_real_and_synthetic_schema_mentions_and_availability) ... ok
+test_routed_vocabulary_excludes_other_aspect_and_validation_words (test_artifacts.UpdatedArtifactTests.test_routed_vocabulary_excludes_other_aspect_and_validation_words) ... ok
+test_routing_manifest_mismatch_is_rejected (test_artifacts.UpdatedArtifactTests.test_routing_manifest_mismatch_is_rejected) ... ok
+test_saved_metrics_evidence_selection_and_calibration (test_artifacts.UpdatedArtifactTests.test_saved_metrics_evidence_selection_and_calibration) ... ok
+test_synthetic_sleep_quality_has_real_probability_output (test_artifacts.UpdatedArtifactTests.test_synthetic_sleep_quality_has_real_probability_output) ... ok
 test_delivered_metrics_splits_and_models (test_project.DeliveredArtifactTests.test_delivered_metrics_splits_and_models) ... ok
 test_polarity_baseline_uses_development_majority (test_project.DeliveredArtifactTests.test_polarity_baseline_uses_development_majority) ... ok
 test_real_dataset_provenance_and_labels (test_project.DeliveredArtifactTests.test_real_dataset_provenance_and_labels) ... ok
@@ -40,8 +47,37 @@ test_corrupt_report_fails (test_readiness.ReadinessTests.test_corrupt_report_fai
 test_documented_demo_predictions_are_reproducible (test_readiness.ReadinessTests.test_documented_demo_predictions_are_reproducible) ... ok
 test_duplicate_reports_fail (test_readiness.ReadinessTests.test_duplicate_reports_fail) ... ok
 test_missing_project_files_fail (test_readiness.ReadinessTests.test_missing_project_files_fail) ... ok
+test_calibration_folds_keep_hotels_disjoint (test_routing.ConfidenceTests.test_calibration_folds_keep_hotels_disjoint) ... ok
+test_hotel_bootstrap_is_reproducible_and_paired (test_routing.ConfidenceTests.test_hotel_bootstrap_is_reproducible_and_paired) ... ok
+test_invalid_confidence_rejected (test_routing.ConfidenceTests.test_invalid_confidence_rejected) ... ok
+test_ordinal_metrics_do_not_count_near_miss_as_exact (test_routing.ConfidenceTests.test_ordinal_metrics_do_not_count_near_miss_as_exact) ... ok
+test_strategy_selection_ignores_test_scores (test_routing.ConfidenceTests.test_strategy_selection_ignores_test_scores) ... ok
+test_svm_calibration_gives_probabilities_without_changing_ratings (test_routing.ConfidenceTests.test_svm_calibration_gives_probabilities_without_changing_ratings) ... ok
+test_threshold_derived_from_validation_correctness (test_routing.ConfidenceTests.test_threshold_derived_from_validation_correctness) ... ok
+test_not_mentioned_and_unavailable_have_no_claimed_rating (test_routing.PredictionSchemaTests.test_not_mentioned_and_unavailable_have_no_claimed_rating) ... ok
+test_opt_in_estimates_are_explicit (test_routing.PredictionSchemaTests.test_opt_in_estimates_are_explicit) ... ok
+test_prediction_evidence_confidence_and_status (test_routing.PredictionSchemaTests.test_prediction_evidence_confidence_and_status) ... ok
+test_uncertain_abstains_but_retains_tentative_candidate (test_routing.PredictionSchemaTests.test_uncertain_abstains_but_retains_tentative_candidate) ... ok
+test_absent_evidence_fallback_for_labelled_training_rows (test_routing.RouterTests.test_absent_evidence_fallback_for_labelled_training_rows) ... ok
+test_ambiguous_desk_fallback_is_transparent (test_routing.RouterTests.test_ambiguous_desk_fallback_is_transparent) ... ok
+test_central_multi_clause_example (test_routing.RouterTests.test_central_multi_clause_example) ... ok
+test_contracted_negations_in_coordinated_clauses (test_routing.RouterTests.test_contracted_negations_in_coordinated_clauses) ... ok
+test_expensive_but_near_station (test_routing.RouterTests.test_expensive_but_near_station) ... ok
+test_explicit_pronoun_continuation (test_routing.RouterTests.test_explicit_pronoun_continuation) ... ok
+test_full_review_strategy_disclosed (test_routing.RouterTests.test_full_review_strategy_disclosed) ... ok
+test_generic_positive_clause_does_not_attach_to_location (test_routing.RouterTests.test_generic_positive_clause_does_not_attach_to_location) ... ok
+test_independent_and_contrast_clauses (test_routing.RouterTests.test_independent_and_contrast_clauses) ... ok
+test_negation_variants_preserved (test_routing.RouterTests.test_negation_variants_preserved) ... ok
+test_reasonable_variants_and_front_desk (test_routing.RouterTests.test_reasonable_variants_and_front_desk) ... ok
+test_room_clean_mentions_both_aspects (test_routing.RouterTests.test_room_clean_mentions_both_aspects) ... ok
+test_room_service_is_not_room_condition (test_routing.RouterTests.test_room_service_is_not_room_condition) ... ok
+test_sentence_and_semicolon_boundaries (test_routing.RouterTests.test_sentence_and_semicolon_boundaries) ... ok
+test_shared_noun_list_retained (test_routing.RouterTests.test_shared_noun_list_retained) ... ok
+test_spotless_room_and_rude_reception (test_routing.RouterTests.test_spotless_room_and_rude_reception) ... ok
+test_staff_only_mentions_service (test_routing.RouterTests.test_staff_only_mentions_service) ... ok
+test_transformer_preserves_negation_and_is_stateless (test_routing.RouterTests.test_transformer_preserves_negation_and_is_stateless) ... ok
 
 ----------------------------------------------------------------------
-Ran 42 tests in 9.064s
+Ran 78 tests in 71.107s
 
 OK

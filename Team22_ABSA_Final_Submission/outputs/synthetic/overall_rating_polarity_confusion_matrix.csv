@@ -1,0 +1,4 @@
+true_polarity,negative,neutral,positive
+negative,0,1,0
+neutral,0,20,6
+positive,0,3,34
